@@ -1,4 +1,4 @@
-package Ejercicio2;
+package Ejercicio1.src;
 
 public class Ej2 {
 }
@@ -7,7 +7,7 @@ interface Rasgos{
     void caucasico();
 }
 
-class Main{
+class Main2{
 
     static void imprimirJerarquiaDeClasses(Class<?> c) {
         System.out.print(c.getName() + (c.getSuperclass() != null ? "  >  " : "\n"));

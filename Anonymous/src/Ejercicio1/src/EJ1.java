@@ -1,7 +1,5 @@
-package Ejercicio1;
+package Ejercicio1.src;
 
-public class EJ1 {
-}
 class Persona{
 
 }
