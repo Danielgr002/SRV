@@ -54,9 +54,6 @@ public class Ejercicio2 {
     public static void main(String[] args) {
         Map<Integer, Cliente> reservas = new ConcurrentHashMap<>();
 
-        Cliente cl = new Cliente("Daniel", 1, 2);
-        Cliente cl2 = new Cliente("Pedro", 1, 2);
-
         System.out.println(hacer_reserva(reservas));
         System.out.println(hacer_reserva(reservas));
 
