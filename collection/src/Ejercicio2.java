@@ -1,25 +1,15 @@
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-class Cliente {
-    int habi;
+class Reserva {
     String nombre;
     int hora_in;
     int hora_fin;
 
-    public int getHabi() {
-        return habi;
+    public Reserva() {
     }
 
-    public void setHabi(int habi) {
-        this.habi = habi;
-    }
-
-    public Cliente() {
-    }
-
-    public Cliente(String nombre, int hora_in, int hora_fin) {
+    public Reserva(String nombre, int hora_in, int hora_fin) {
         this.nombre = nombre;
         this.hora_in = hora_in;
         this.hora_fin = hora_fin;
@@ -52,36 +42,32 @@ class Cliente {
 
 public class Ejercicio2 {
     public static void main(String[] args) {
-        Map<Integer, Cliente> reservas = new ConcurrentHashMap<>();
-
-        System.out.println(hacer_reserva(reservas));
-        System.out.println(hacer_reserva(reservas));
-
-    }
-
-    public static boolean hacer_reserva( Map<Integer, Cliente> reserva){
-        Cliente cl = new Cliente();
         Scanner leer = new Scanner(System.in);
-        System.out.println("Numero de habitacion: ");
-        int hab = leer.nextInt();
-        cl.setHabi(hab);
-        System.out.println("Nombre: ");
-        String nom = leer.next();
-        cl.setNombre(nom);
-        System.out.println("Hora inicio");
-        int hora_in = leer.nextInt();
-        cl.setHora_in(hora_in);
-        System.out.println("Hora fin: ");
-        int hora_fin = leer.nextInt();
-        cl.setHora_fin(hora_fin);
-        for (Map.Entry<Integer,Cliente> entry: reserva.entrySet()) {
-            if (entry.getKey().equals(hab)) {
-                if (entry.getValue().hora_in == cl.hora_in || entry.getValue().hora_fin == cl.hora_fin) {
-                    return false;
+
+        Map<Integer, List<Reserva>> reservas = new HashMap<>();
+        while (true) {
+            int hab = leer.nextInt();
+            String nombre = leer.next();
+            int hora_in = leer.nextInt();
+            int hora_fin = leer.nextInt();
+
+            if (reservas.get(hab) == null) {
+                reservas.put(hab, new ArrayList<>());
+            }
+
+            boolean esta = false;
+            for (Reserva r: reservas.get(hab)) {
+                if (r.getHora_in() == hora_in) {
+                    esta =true;
+                    break;
                 }
             }
+            if (esta = false){
+                reservas.get(hab).add(new Reserva());
+            }
+
+            System.out.println("La hora esta ocupada");
         }
-        reserva.put(hab, cl);
-        return true;
+
     }
 }
