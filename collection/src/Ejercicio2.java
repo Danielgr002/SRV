@@ -1,5 +1,8 @@
+/*
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 
 class Reserva {
     String nombre;
@@ -40,34 +43,46 @@ class Reserva {
     }
 }
 
+class GestorReservas {
+    ConcurrentHashMap<Integer, List<Reserva>> reservas = new ConcurrentHashMap<>();
+    boolean reservar (int hab, int hora_in, int hora_fin, String nombre) {
+        reservas.putIfAbsent(hab, new ArrayList<>());
+
+        boolean ocupada = false;
+        for (Reserva r: reservas.get(hab)) {
+            if (r.getHora_in() >= hora_fin || hora_in <= r.getHora_fin()) {
+                ocupada =true;
+                System.out.println("La hora ocupada ocupada");
+                break;
+            }
+        }
+        if (ocupada = false){
+            reservas.get(hab).add(new Reserva(nombre, hora_in, hora_fin));
+        }
+        return ocupada;
+    }
+}
+
 public class Ejercicio2 {
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
 
-        Map<Integer, List<Reserva>> reservas = new HashMap<>();
-        while (true) {
-            int hab = leer.nextInt();
-            String nombre = leer.next();
-            int hora_in = leer.nextInt();
-            int hora_fin = leer.nextInt();
 
-            if (reservas.get(hab) == null) {
-                reservas.put(hab, new ArrayList<>());
+        GestorReservas g = new GestorReservas();
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()){
+            for (int i = 0; i < 1000; i++) {
+                executor.submit(()->
+                        g.reservar(
+                                ThreadLocalRandom.current().nextInt(
+                                        int hab;
+                                        int hora_in;
+                                        int hora_fin;
+                                        String nombre;
+                                )
+                        )
+                )
             }
-
-            boolean esta = false;
-            for (Reserva r: reservas.get(hab)) {
-                if (r.getHora_in() == hora_in) {
-                    esta =true;
-                    break;
-                }
-            }
-            if (esta = false){
-                reservas.get(hab).add(new Reserva());
-            }
-
-            System.out.println("La hora esta ocupada");
         }
-
     }
 }
+*/
