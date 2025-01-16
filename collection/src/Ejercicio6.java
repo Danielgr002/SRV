@@ -6,6 +6,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static java.lang.System.*;
 
 public class Ejercicio6 {
     record Item(String description, AtomicReference<State> state){
@@ -22,12 +26,13 @@ public class Ejercicio6 {
         }
 
         public String toString(){
-            return (state.get() == State.CHECKED ? ("✔️") : (" ") + description + "\n");
+            return (state.get() == State.CHECKED ? "✔️" : " ") + " Descripcion: "+ description + "\n";
         }
     }
 
     public static void main(String[] args) {
         List<Item> lista = new CopyOnWriteArrayList<>();
+        Lock lock = new ReentrantLock();
 
         try (var executors = Executors.newVirtualThreadPerTaskExecutor()){
             executors.submit(() -> {
@@ -40,15 +45,31 @@ public class Ejercicio6 {
                 }
             });
             executors.submit(()-> {
-                lista.get(ThreadLocalRandom.current().nextInt(lista.size())).setState(Item.State.CHECKED);
+                while (true) {
+                    try {
+                        lock.lock();
+                        if (lista.size()>0) {
+                            lista.get(ThreadLocalRandom.current().nextInt(lista.size())).setState(Item.State.CHECKED);
+                        }
+                        lock.unlock();
+                    } catch (Exception e){
+                        out.println("Mierdon!!!");
+                    }
+                }
             });
 
             executors.submit(()-> {
-                lista.remove(ThreadLocalRandom.current().nextInt(lista.size()));
+                while (true) {
+                    lock.lock();
+                    lista.remove(ThreadLocalRandom.current().nextInt(lista.size()));
+                    lock.unlock();
+                }
             });
             executors.submit(()->{
                 while (true){
-                    System.out.println(lista);
+                    for (Item i: lista){
+                        out.println(i.toString());
+                    }
                 }
             });
         }
