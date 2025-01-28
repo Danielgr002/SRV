@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/Lamba/Lamba.iml" filepath="$PROJECT_DIR$/Lamba/Lamba.iml" />
       <module fileurl="file://$PROJECT_DIR$/Method reference/Method reference.iml" filepath="$PROJECT_DIR$/Method reference/Method reference.iml" />
       <module fileurl="file://$PROJECT_DIR$/SRV.iml" filepath="$PROJECT_DIR$/SRV.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ServerSocket/ServerSocket.iml" filepath="$PROJECT_DIR$/ServerSocket/ServerSocket.iml" />
       <module fileurl="file://$PROJECT_DIR$/Threads/Threads.iml" filepath="$PROJECT_DIR$/Threads/Threads.iml" />
       <module fileurl="file://$PROJECT_DIR$/collection/collection.iml" filepath="$PROJECT_DIR$/collection/collection.iml" />
       <module fileurl="file://$PROJECT_DIR$/prueba/prueba.iml" filepath="$PROJECT_DIR$/prueba/prueba.iml" />
